@@ -10,9 +10,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os 
 from os import environ
-from dotenv import load_dotenv
 import dj_database_url
-load_dotenv()
 import logging
 LOGGING = {
     'version': 1,
