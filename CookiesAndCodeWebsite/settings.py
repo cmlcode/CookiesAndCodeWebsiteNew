@@ -38,10 +38,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Cookies & Code Password Change'
 
-IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
-if not IS_HEROKU_APP:
-    DEBUG = True
-
 
 # Application definition
 
