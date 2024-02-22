@@ -11,6 +11,7 @@ from pathlib import Path
 import os 
 from os import environ
 from dotenv import load_dotenv
+import dj_database_url
 load_dotenv()
 
 
@@ -93,10 +94,7 @@ WSGI_APPLICATION = 'CookiesAndCodeWebsite.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
+    'default':  dj_database_url.config(default='sqlite:///db.sqlite3', conn_max_age=600),
     "bk_local": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
@@ -118,12 +116,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-# set environment variable of database with 'export DJANGO_DATABASE='bk_local''
-default_database = environ.get('DJANGO_DATABASE', 'default')
-DATABASES['default'] = DATABASES[default_database]
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
