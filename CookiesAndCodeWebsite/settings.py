@@ -135,7 +135,7 @@ DATABASES = {
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=500)
-logger.error(f'Database env var: {os.environ.get("DATABASE_URL")}')
+logger.error(f'Database env var: {os.getenv("DATABASE_URL")}')
 logger.error(f'Database configuration from environment: {db_from_env}')
 DATABASES['default'].update(db_from_env)
 
