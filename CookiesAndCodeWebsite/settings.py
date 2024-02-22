@@ -29,7 +29,7 @@ LOGGING = {
         },
     },
 }
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('django.server')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -135,7 +135,7 @@ DATABASES = {
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=500)
-logger.info(f'Database configuration from environment: {db_from_env}')
+logger.error(f'Database configuration from environment: {db_from_env}')
 DATABASES['default'].update(db_from_env)
 
 
@@ -186,7 +186,7 @@ STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'staticfiles')
 ]
 import django_heroku
-django_heroku.settings(locals(), logging=False, databases=False, secret_key=False)
+django_heroku.settings(locals(), logging=False)
 
 if os.getcwd() == '/app':
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
