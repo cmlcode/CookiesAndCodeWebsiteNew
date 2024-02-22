@@ -190,7 +190,7 @@ STATICFILES_DIR = [
 
 
 import django_heroku
-django_heroku.settings(locals(), databases=False)
+django_heroku.settings(locals(), logging=False)
 
 if os.getcwd() == '/app':
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
