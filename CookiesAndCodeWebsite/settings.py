@@ -144,7 +144,6 @@ DATABASES = {
 db_from_env = dj_database_url.config(conn_max_age=500)
 logger.info(f'Database configuration from environment: {db_from_env}')
 DATABASES['default'].update(db_from_env)
-logger.info(f'Database default: {DATABASES['default']}')
 
 
 # Password validation
