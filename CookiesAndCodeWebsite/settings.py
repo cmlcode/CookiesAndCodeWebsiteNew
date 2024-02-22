@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # run 'export DEBUG_VALUE="True"' from terminal to develop locally
 DEBUG = (os.environ.get('DEBUG_VALUE') == "True")
-#SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -38,6 +38,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Cookies & Code Password Change'
 
+IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
+if not IS_HEROKU_APP:
+    DEBUG = True
 
 
 # Application definition
@@ -94,7 +97,11 @@ WSGI_APPLICATION = 'CookiesAndCodeWebsite.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default':  dj_database_url.config(default='sqlite:///db.sqlite3', conn_max_age=600),
+    'default':  dj_database_url.config(
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True,
+        ),
     "bk_local": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
