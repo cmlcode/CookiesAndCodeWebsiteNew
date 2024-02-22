@@ -14,8 +14,6 @@ from dotenv import load_dotenv
 import dj_database_url
 load_dotenv()
 import logging
-
-# Add logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -24,15 +22,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'INFO',
-    },
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': False,
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
         },
     },
 }
