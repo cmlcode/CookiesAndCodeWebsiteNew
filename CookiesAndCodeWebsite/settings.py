@@ -13,7 +13,30 @@ from os import environ
 from dotenv import load_dotenv
 import dj_database_url
 load_dotenv()
+import logging
 
+# Add logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+logger = logging.getLogger(__name__)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -119,7 +142,10 @@ DATABASES = {
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=500)
+logger.info(f'Database configuration from environment: {db_from_env}')
 DATABASES['default'].update(db_from_env)
+logger.info(f'Database default: {DATABASES['default']}')
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
