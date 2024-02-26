@@ -132,11 +132,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-logger.error(f'Database env var: {os.getenv("DATABASE_URL")}')
-logger.error(f'Database configuration from environment: {db_from_env}')
-DATABASES['default'] = db_from_env
-
+db_from_env = dj_database_url.parse(os.getenv('REAL_DATABASE'))
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
